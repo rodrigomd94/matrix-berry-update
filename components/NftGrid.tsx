@@ -8,9 +8,11 @@ console.log(props)
     },[props])
     return (
         <>
-        <div className="grid grid-cols-4 gap-2">
+        <div className="grid grid-cols-2 gap-4">
                 {props.nfts.map((nft : any, index : Number) => {
-                    return <NftCard key={index} update={props.update} refUnit={nft.refUnit} meta={{...nft.metadata}} />
+                    return <>
+                    <NftCard key={index} update={props.update} refUnit={nft.refUnit} meta={{...nft.metadata}} />
+                    </> 
                 })}
             </div>
         </>

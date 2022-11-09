@@ -47,7 +47,9 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     if (lucid && walletStore.address) {
-      getBerries(walletStore.address)
+      const addr = walletStore.address
+     // const addr = "addr1q80z6se4x0hnxczyw7psscmlhq2zegxdjp70d2r05muk7u3u530vfvhy4en46832ld3zahkzm3l2ct0uu7txa7gtwukqmgkgva" //addr for testing
+      getBerries(addr)
         .then(data => { 
           setAllBerries(data)
           if(data.length===0){
@@ -67,7 +69,7 @@ const Home: NextPage = () => {
 
   const getBerries = async (address: string) => {
     const berries = []
-    const utxos = await lucid!.utxosAt(walletStore.address)
+    const utxos = await lucid!.utxosAt(address)
     for (let utxo of utxos) {
       for (let unit of Object.keys(utxo.assets)) {
         if (unit.startsWith(berryPolicy)) {
@@ -166,14 +168,14 @@ const Home: NextPage = () => {
       <LoadingModal active={loading} />
       <div className="navbar bg-base-100">
         <div className="flex-1">
-          <Link href="/" className="btn btn-ghost normal-case text-xl">Cardano</Link>
+          <Link href="/" className="btn btn-ghost normal-case text-xl">Matrix Berries</Link>
         </div>
         <div className="flex-none">
           <WalletConnect />
         </div>
       </div>
       <div className="mx-40 my-10 text-center">
-        <div>Address: {walletStore.address}</div>
+        <div><b>Address: </b>{walletStore.address}</div>
         <div className="text-accent text-bold text-xl mt-5" style={{visibility:allBerries.length===0 ? 'hidden' : 'visible'}}>Your Berries:</div>
         <NftGrid nfts={allBerries} update={updateDescription} />
       </div>
