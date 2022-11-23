@@ -73,7 +73,7 @@ const Home: NextPage = () => {
     for (let utxo of utxos) {
       for (let unit of Object.keys(utxo.assets)) {
         if (unit.startsWith(berryPolicy)) {
-          const refUnit = unit.replace("000de1404d", "000643b04d")
+          const refUnit = unit.replace("000de140", "000643b0")
           const metadata = await getMetadata(refUnit)
           berries.push({ refUnit, metadata })
         }
@@ -115,7 +115,7 @@ const Home: NextPage = () => {
     );
 
     const userTokenUtxo = (await lucid!.wallet.getUtxos()).find((utxo) =>
-      !!utxo.assets[matrixRefAssetId.replace("000643b04d", "000de1404d")]
+      !!utxo.assets[matrixRefAssetId.replace("000643b0", "000de140")]
     );
 
     if (!refNFTUtxo) throw new Error("NoUTxOError");
